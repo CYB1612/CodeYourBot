@@ -3,6 +3,278 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeYourBot - RPA Workshops & Internships</title>
+  <meta name="description" content="CodeYourBot offers hands-on RPA workshops, bootcamps, and internships for IT students to build automation skills using UiPath and AI/ML tools.">
+  <meta name="keywords" content="RPA, UiPath, internship, automation, CodeYourBot, workshops, bootcamp, Python, C#, AI, ML">
+  <meta name="author" content="CodeYourBot Team">
+  <meta property="og:title" content="CodeYourBot - RPA Training & Internships">
+  <meta property="og:description" content="Join our expert-led RPA workshops and internship programs to build real-world automation projects.">
+  <meta property="og:image" content="images/banner.png">
+  <meta property="og:url" content="https://codeyourbot.com">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon_16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon_32.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0e0f1c;
+      color: #f0f0f0;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      background: #12131f;
+      padding: 10px 20px;
+      z-index: 999;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    nav img {
+      height: 50px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      color: #f0f0f0;
+      text-decoration: none;
+      position: relative;
+      padding: 8px 10px;
+    }
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: #00bcd4;
+      transition: 0.3s;
+    }
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+    header {
+      position: relative;
+      height: 85vh;
+      background: linear-gradient(rgba(10,10,10,0.7), rgba(10,10,10,0.8)), url('images/banner.png') no-repeat center center/cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    header h1 {
+      font-size: 2.8rem;
+      color: #00bcd4;
+      text-shadow: 0 0 10px #00bcd4;
+    }
+    header p {
+      font-size: 1.1rem;
+      color: #ccc;
+      max-width: 90%;
+    }
+    .cta {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #00bcd4;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px #00bcd4;
+    }
+    .cta:hover {
+      background: #009db2;
+      transform: scale(1.05);
+    }
+    .section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      scroll-snap-type: x mandatory;
+      padding: 20px 0;
+      justify-content: center;
+    }
+    .workshop {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      padding: 20px;
+      min-width: 280px;
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease;
+    }
+    .workshop:hover {
+      transform: translateY(-5px);
+    }
+    .workshop img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    .testimonial {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(6px);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      min-width: 280px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+    .testimonial img {
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      margin-bottom: 10px;
+    }
+    .contact-form {
+      max-width: 500px;
+      margin: auto;
+    }
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      background: #2c2f3e;
+      color: #fff;
+    }
+    .contact-form button {
+      background: #00bcd4;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    footer {
+      background: #12131f;
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+    }
+    .floating-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00bcd4;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+      box-shadow: 0 0 15px #00bcd4;
+      z-index: 999;
+      text-decoration: none;
+    }
+    @media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+  .carousel {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  nav {
+    flex-direction: column;
+    align-items: center;
+  }
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    width: auto;
+    margin: 0;
+  }
+  nav ul li {
+    width: auto;
+    text-align: center;
+    margin: 5px 0;
+  }
+  .cta {
+    font-size: 0.95rem;
+  }
+  .workshop, .testimonial {
+    min-width: 90% !important;
+  }
+}
+  .carousel {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+  }
+  nav {
+    flex-direction: column;
+    align-items: center;
+  }
+  nav ul li {
+    width: 100%;
+    text-align: center;
+  }
+  .cta {
+    font-size: 0.95rem;
+  }
+  .workshop, .testimonial {
+    min-width: 90% !important;
+  }
+}
+      .carousel {
+        flex-direction: column;
+        align-items: center;
+      }
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        width: 100%;
+        padding: 10px 0;
+      }
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      .cta {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CodeYourBot - RPA Internships & Workshops</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
