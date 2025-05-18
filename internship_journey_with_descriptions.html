@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CodeYourBot - Internship Journey</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0e0f1c;
+      color: #f0f0f0;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00bcd4;
+      margin-bottom: 40px;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 1000px;
+      margin: auto;
+      padding: 0;
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      background-color: #00bcd4;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -3px;
+    }
+
+    .milestone {
+      padding: 20px 30px;
+      position: relative;
+      background-color: inherit;
+      width: 50%;
+    }
+
+    .milestone::after {
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      right: -13px;
+      background-color: #00bcd4;
+      border: 4px solid #fff;
+      top: 15px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .left {
+      left: 0;
+    }
+
+    .right {
+      left: 50%;
+    }
+
+    .right::after {
+      left: -13px;
+    }
+
+    .content {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 188, 212, 0.2);
+    }
+
+    .content h2 {
+      margin-top: 0;
+      color: #00bcd4;
+    }
+
+    @media screen and (max-width: 768px) {
+      .timeline::after {
+        left: 31px;
+      }
+
+      .milestone {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+
+      .milestone::after {
+        left: 15px;
+      }
+
+      .right {
+        left: 0%;
+      }
+
+      .right::after {
+        left: 15px;
+      }
+    }
+	
+.icon {
+  position: absolute;
+  top: 0;
+  width: 70px;
+  height: 70px;
+  background-color: #00bcd4;
+  color: #0e0f1c;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  z-index: 3;
+  box-shadow: 0 0 15px rgba(0, 188, 212, 0.6);
+  border: 4px solid #fff;
+}
+
+.left .icon {
+  right: -35px;
+}
+
+.right .icon {
+  left: -35px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+  </style>
+</head>
+<body>
+
+<h1>Internship Journey</h1>
+
+<!-- Timeline Container -->
+<div class="timeline">
+  <div class="milestone left">
+    <div class="icon"><i class="fas fa-file-alt"></i></div>
+    <div class="content">
+      <h2>Apply</h2>
+      <p>Start your journey by filling out a simple application form. Tell us about your interests and skills.</p>
+    </div>
+  </div>
+
+  <div class="milestone right">
+    <div class="icon"><i class="fas fa-comments"></i></div>
+    <div class="content">
+      <h2>Interview & Shortlisting</h2>
+      <p>Participate in a short interview or screening. We'll select motivated candidates to move forward.</p>
+    </div>
+  </div>
+
+  <div class="milestone left">
+    <div class="icon"><i class="fas fa-laptop-code"></i></div>
+    <div class="content">
+      <h2>Get Hands-on Training</h2>
+      <p>Receive expert-led RPA training with UiPath, learning real-world automation and bot building.</p>
+    </div>
+  </div>
+
+  <div class="milestone right">
+    <div class="icon"><i class="fas fa-project-diagram"></i></div>
+    <div class="content">
+      <h2>Complete Enterprise Projects</h2>
+      <p>Work on automation use cases that solve actual business problems, with mentor guidance.</p>
+    </div>
+  </div>
+
+  <div class="milestone left">
+    <div class="icon"><i class="fas fa-award"></i></div>
+    <div class="content">
+      <h2>Get Internship Letter & Certificate</h2>
+      <p>Wrap up your journey with a certificate and letter recognizing your contribution and skills.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Apply now section -->
+<div style="text-align:center; margin-top: 60px;">
+  <a href="https://forms.gle/HyMVEgPvYxmXzdjz5" target="_blank"
+     style="display: inline-block; background-color: #00bcd4; color: #0e0f1c; padding: 16px 32px; border-radius: 8px; font-size: 1.2em; text-decoration: none; font-weight: bold; box-shadow: 0 0 10px rgba(0,188,212,0.5); transition: background-color 0.3s;">
+    🚀 Start Your Journey
+  </a>
+</div>
+
+
+</body>
+</html>

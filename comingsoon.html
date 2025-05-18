@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon - CodeYourBot</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0e0f1c;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      color: #00bcd4;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+    .logo {
+      max-width: 120px;
+      margin-bottom: 30px;
+    }
+    .pulse {
+      margin-top: 40px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: #00bcd4;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <img src="images/companylogo.png" alt="CodeYourBot Logo" class="logo">
+  <h1>Coming Soon</h1>
+  <p>This page is under development. Stay tuned!</p>
+  <div class="pulse"></div>
+</body>
+</html>
