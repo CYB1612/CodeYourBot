@@ -1,27 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CodeYourBot - RPA Workshops & Internships</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
 
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>CodeYourBot - RPA Workshops &amp; Internships</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("JMzxXB7bgmACSryqz"); // Replace with your EmailJS User ID
+    })();
+  </script>
   <style>
     * {
       box-sizing: border-box;
       scroll-behavior: smooth;
     }
+
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0e0f1c;
-      color: #f0f0f0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to bottom, #f9fafb, #e5e7eb);
+      color: #111827;
     }
+
     header {
       position: relative;
       height: 115vh;
-      background: linear-gradient(rgba(10,10,10,0.7), rgba(10,10,10,0.8)), url('images/banner.png') no-repeat center center/cover;
+      background: url('images/banner.png') no-repeat center center/cover;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -29,32 +38,36 @@
       text-align: center;
       padding: 10px;
     }
+
     header h1 {
       font-size: 3rem;
-      color: #00bcd4;
-      text-shadow: 0 0 10px #00bcd4;
+      color: #ffffff;
+      text-shadow: 0 0 10px #f97316;
     }
+
     header p {
       font-size: 1.2rem;
-      color: #ccc;
+      color: #e5e7eb;
     }
 
     nav {
       position: sticky;
       top: 0;
-      background: #12131f;
+      background: #ffffff;
       padding: 10px 20px;
       z-index: 999;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid #e5e7eb;
     }
 
     .hamburger {
       display: none;
       font-size: 1.8rem;
-      color: white;
+      color: #111827;
       cursor: pointer;
     }
 
@@ -67,9 +80,11 @@
     }
 
     nav ul li a {
-      color: #f0f0f0;
+      color: #111827;
+      /* default dark text */
       text-decoration: none;
       position: relative;
+      transition: color 0.3s ease;
     }
 
     nav ul li a::after {
@@ -79,8 +94,14 @@
       bottom: -4px;
       width: 0;
       height: 2px;
-      background: #00bcd4;
-      transition: 0.3s;
+      background: #f97316;
+      /* orange underline */
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #f97316;
+      /* vibrant orange on hover */
     }
 
     nav ul li a:hover::after {
@@ -102,15 +123,13 @@
     }
 
     .workshop {
-      background: rgba(255, 255, 255, 0.05);
+      background: #ffffff;
+      color: #111827;
       border-radius: 12px;
-      backdrop-filter: blur(8px);
       padding: 20px;
       min-width: 300px;
       scroll-snap-align: start;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-	  flex-direction: column;
-	  justify-content: space-between;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
       transition: transform 0.3s ease;
     }
 
@@ -125,12 +144,12 @@
     }
 
     .testimonial {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(6px);
+      background: #ffffff;
+      color: #111827;
       padding: 20px;
       border-radius: 10px;
       text-align: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
     }
 
     .testimonial img {
@@ -152,28 +171,35 @@
       padding: 10px;
       margin: 10px 0;
       border-radius: 5px;
-      border: none;
+      border: 1px solid #d1d5db;
       font-size: 1rem;
     }
 
     .contact-form input,
     .contact-form textarea {
-      background: #2c2f3e;
-      color: #fff;
+      background: #ffffff;
+      color: #111827;
     }
 
-    .contact-form button {
-      background: #00bcd4;
+    .contact-form button,
+    a[href*="register"] {
+      background: #f97316;
       color: white;
       font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .contact-form button:hover,
+    a[href*="register"]:hover {
+      background: #c2410c;
     }
 
     footer {
-      background: #12131f;
+      background: #ffffff;
       text-align: center;
       padding: 20px;
-      color: #aaa;
+      color: #6b7280;
     }
 
     .floating-btn {
@@ -203,7 +229,6 @@
       transform: scale(1.05);
     }
 
-    /* Responsive Styles */
     @media (max-width: 768px) {
       header {
         height: auto;
@@ -266,12 +291,94 @@
         padding: 0 10px;
       }
     }
-  </style>
-</head>
-<body>
+    button.submit_btn:disabled {
+      background-color: #6c757d;
+      cursor: not-allowed;
+    }
 
+    .spinner {
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid #fff;
+      border-radius: 50%;
+      width: 14px;
+      height: 14px;
+      animation: spin 0.6s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Toast styles */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      min-width: 280px;
+      padding: 15px 20px;
+      border-radius: 6px;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.3s ease-in-out;
+      z-index: 9999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .toast.success {
+      background-color: #28a745;
+    }
+
+    .toast.error {
+      background-color: #dc3545;
+    }
+
+    .toast .close-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      margin-left: 10px;
+      cursor: pointer;
+	  }
+	  
+	 .know-more-btn {
+    display: inline-block;
+    background-color: #f97316; /* Base orange */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  .know-more-btn:hover {
+    background-color: #fdba74; /* Lighter orange */
+    color: #1f1f1f; /* Optional: darker text for contrast */
+  } 
+	  
+    }
+	
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet" />
+</head>
+
+<body>
   <nav>
-    <img src="images/companylogo.png" alt="Company Logo" style="height: 60px">
+    <img alt="Company Logo" src="images/companylogo.png" style="height: 80px" />
     <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
     <ul id="nav-links">
       <li><a href="#workshops">Workshops</a></li>
@@ -281,123 +388,121 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
-
   <header>
     <h1>Empower Your Future</h1>
-   
   </header>
-
-  <section id="workshops" class="section" data-aos="fade-up" style="scroll-margin-top: 100px;">
+  <section class="section" data-aos="fade-up" id="workshops" style="scroll-margin-top: 100px;">
     <h2>Workshops We Offer</h2>
     <div class="carousel">
-      <div class="workshop" style="min-width: 280px; max-width: 350px;"> 
-        <img src="images/Workshop1.png" alt="RPA using UiPath">
+      <div class="workshop" style="min-width: 280px; max-width: 350px;">
+        <img alt="RPA using UiPath" src="images/Workshop1.png" />
         <h3>Introduction to Robotics Process Automation</h3>
-		<p>Get Intrudced to the amazing world of Bots and Ai Agents, the future of work.</p>
-		<p>Duration: 2 hrs<br>Time: 9 am to 11 am IST<br>Frequency: 1st Sat of every month</p>
-		<a href="https://yourregistrationlink.com" target="_blank" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: #00bcd4; color: white; font-weight: bold; border-radius: 4px; text-decoration: none;">Register</a>
-      
+        <p>Get Intrudced to the amazing world of Bots and Ai Agents, the future of work.</p>
+        <p>Duration: 2 hrs<br />Time: 9 am to 11 am IST<br />Frequency: 1st Sat of every month</p>
+        <a href="comingsoon.html" class="know-more-btn">Register</a>
       </div>
       <div class="workshop" style="min-width: 280px; max-width: 350px;">
-        <img src="images/Workshop2.png" alt="RPA Project Building">
+        <img alt="RPA Project Building" src="images/Workshop2.png" />
         <h3>Build an Enterprise Automation Project using UiPath</h3>
         <p>Hands-on projects on real-life automation use cases with guidance from mentors.</p>
-		<p>Duration: 3 hrs<br>Time: 9 am to 12 am IST<br>Frequency: 2nd Sat of every month</p>
-		<a href="https://yourregistrationlink.com" target="_blank" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: #00bcd4; color: white; font-weight: bold; border-radius: 4px; text-decoration: none;">Register</a>
+        <p>Duration: 3 hrs<br />Time: 9 am to 12 am IST<br />Frequency: 2nd Sat of every month</p>
+        <a href="comingsoon.html" class="know-more-btn">Register</a>
       </div>
       <div class="workshop" style="min-width: 280px; max-width: 350px;">
-        <img src="images/s.png" alt="Building AI Powered Bot For Sentiment Analysis">
+        <img alt="Building AI Powered Bot For Sentiment Analysis" src="images/s.png" />
         <h3>Build a Sentiment Analyser Bot</h3>
         <p>Product Review Sentiment Analyser using UiPath Custom ML Models</p>
-		<p>Duration: 4 hrs<br>Time: Time: 9 am to 1 pm IST<br>Frequency: 3rd Sat of every month</p>
-		<a href="https://yourregistrationlink.com" target="_blank" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: #00bcd4; color: white; font-weight: bold; border-radius: 4px; text-decoration: none;">Register</a>
+        <p>Duration: 4 hrs<br />Time: Time: 9 am to 1 pm IST<br />Frequency: 3rd Sat of every month</p>
+        <a href="comingsoon.html" class="know-more-btn">Register</a>
       </div>
     </div>
   </section>
-
-  <section id="internship" class="section" data-aos="fade-up">
-
-	<h2>Internship Opportunities</h2>
-	<div class="carousel">
-		<div class="workshop" style="min-width: 280px; max-width: 350px;">
-			<a href="internship_journey_with_descriptions.html">
-			<img src="images/Internship.png" alt="Advanced RPA Internship">
-			</a>
-			<h3><a href="internship_journey_with_descriptions.html" style="color: inherit; text-decoration: none;">RPA Internship</a></h3>
-			<p>Work on real projects, automate real-world processes using UiPath, and earn a certificate.</p>
-			<a href="internship_journey_with_descriptions.html" target="_blank" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: #00bcd4; color: white; font-weight: bold; border-radius: 4px; text-decoration: none;">Register</a>
-		</div>
-		<div class="workshop" style="min-width: 280px; max-width: 350px;">
-			<img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80" alt="Marketing Internship">
-			<h3>Marketing & Business Development</h3>
-			<p>Contribute to brand strategy, social media marketing, and outreach campaigns while learning key business skills.</p>
-			<a href="https://forms.gle/3hC9XcnnEbTj3cxA8" target="_blank" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: #00bcd4; color: white; font-weight: bold; border-radius: 4px; text-decoration: none;">Register</a>
-		</div>
-	</div>
+  <section class="section" data-aos="fade-up" id="internship">
+    <h2>Internship Opportunities</h2>
+    <div class="carousel">
+      <div class="workshop" style="min-width: 280px; max-width: 350px;">
+        <a href="internship_journey_with_descriptions.html">
+          <img alt="Advanced RPA Internship" src="images/Internship.png" />
+        </a>
+        <h3><a href="internship_journey_with_descriptions.html" style="color: inherit; text-decoration: none;">Robotics
+            Process Automation Training & Internship</a></h3>
+        <p>Work on real projects, automate eneterprise use cases and processes using UiPath, and earn a certificate and internship with Code Your Bot.</p>
+		<a href="internship_journey_with_descriptions.html" class="know-more-btn">Know More</a>  
+      </div>
+      <div class="workshop" style="min-width: 280px; max-width: 350px;">
+        <img alt="Marketing Internship"
+          src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" />
+        <h3>Marketing &amp; Business Development</h3>
+        <p>Contribute to brand strategy, social media marketing, and outreach campaigns while learning key business
+          skills.</p>
+		<a href="https://forms.gle/3hC9XcnnEbTj3cxA8" class="know-more-btn">Know More</a>
+      </div>
+    </div>
   </section>
-	
-	
-  <section id="bootcamps" class="section" data-aos="fade-up">
+  <section class="section" data-aos="fade-up" id="bootcamps">
     <h2>Boot Camps</h2>
     <div class="carousel">
       <div class="workshop">
         <h3>Boot Camp 1</h3>
         <p>Creating a Dictionary App using Python</p>
-		<p>Coming Soon</p>
+        <p>Coming Soon</p>
       </div>
       <div class="workshop">
         <h3>Boot Camp 2</h3>
         <p>CRUD Operation on Online Store using C#</p>
-		<p>Coming Soon</p>
+        <p>Coming Soon</p>
       </div>
       <div class="workshop">
         <h3>Boot Camp 3</h3>
         <p>AI/ML Based RPA Bot</p>
-		<p>Coming Soon</p>
+        <p>Coming Soon</p>
       </div>
     </div>
   </section>
-
-  
-  
-  <section id="testimonials" class="section" data-aos="fade-up">
+  <section class="section" data-aos="fade-up" id="testimonials">
     <h2>What People Are Saying</h2>
     <div class="carousel">
       <div class="testimonial">
-        <img src="images\pushkar.jpeg" alt="User 1">
-		<p><strong><a href="https://www.linkedin.com/in/pushhky/" target="_blank">Pushkar Sharma</a></strong><br>“Great mentors and perfect hands-on sessions for beginners.”</p>
-
+        <img alt="User 1" src="images\pushkar.jpeg" />
+        <p><strong><a href="https://www.linkedin.com/in/pushhky/" target="_blank" style="color: #00bcd4; text-decoration: underline;">Pushkar
+              Sharma</a></strong><br />“Great mentors and perfect hands-on sessions for beginners.”</p>
       </div>
       <div class="testimonial">
-        <img src="images\taruna.jpeg" alt="User 2">
-		<p><strong><a href="https://www.linkedin.com/in/tarunamehra/" target="_blank">Taruna Arora</a></strong><br>“Helped me transition from non IT background to techonoly field, Thank you CYB”</p>
+        <img alt="User 2" src="images\taruna.jpeg" />
+        <p><strong><a href="https://www.linkedin.com/in/tarunamehra/" target="_blank" style="color: #00bcd4; text-decoration: underline;">Taruna
+              Arora</a></strong><br />“Helped me transition from non IT background to techonoly field, Thank you CYB”
+        </p>
       </div>
       <div class="testimonial">
-        <img src="images\shamikh.jpeg" alt="User 3">
-		<p><strong><a href="https://www.linkedin.com/in/shamikh-raza/" target="_blank">Shamikh Raza</a></strong><br>“I loved building bots! Helped me land a job in automation.”</p>
+        <img alt="User 3" src="images\shamikh.jpeg" />
+        <p><strong><a href="https://www.linkedin.com/in/shamikh-raza/" target="_blank" style="color: #00bcd4; text-decoration: underline;">Shamikh Raza</a></strong><br />“I
+          loved building bots! Helped me land a job in automation.”</p>
       </div>
     </div>
   </section>
-
-  <section id="contact" class="section" data-aos="fade-up">
+  <section class="section" data-aos="fade-up" id="contact">
     <h2>Contact Us</h2>
     <div class="contact-form">
-      <form action="#" method="post">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email" required>
-		<input type="tel" name="whatsapp" placeholder="WhatsApp Number" required />
-        <input type="text" name="subject" placeholder="Subject">
-        <textarea name="message" rows="5" placeholder="Your Message"></textarea>
-        <button type="submit">Send Message</button>
+      <form id="contact-form">
+        <input name="name" placeholder="Your Name" required="" type="text" />
+        <input name="email" placeholder="Your Email" required="" type="email" />
+        <input name="phone" placeholder="WhatsApp Number" required="" type="tel" />
+        <input name="subject" placeholder="Subject" type="text" />
+        <textarea name="message" placeholder="Your Message" rows="5"></textarea>
+        <button class="submit_btn"  id="submit-button" type="submit">Send Message</button>
       </form>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <span id="toast-message"></span>
+    <button class="close-btn" onclick="hideToast()">×</button>
+  </div>
+
     </div>
   </section>
-
   <!-- WhatsApp Floating Button -->
-  <a href="https://wa.me/919540058494" class="floating-btn whatsapp" target="_blank" title="Chat on WhatsApp">
+  <a class="floating-btn whatsapp" href="https://wa.me/919540058494" target="_blank" title="Chat on WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
-
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init({ duration: 1000, once: true });
@@ -406,6 +511,98 @@
       document.getElementById('nav-links').classList.toggle('show');
     }
   </script>
- 
+  
+  <footer style="background-color: #12131f; color: #aaa; text-align: center; padding: 20px;">
+    <p>&copy; 2025 CodeYourBot | Site Powered By <a href="https://www.linkedin.com/in/shivani-daksh-5b83582b0/"
+        target="_blank" style="color: #00bcd4; text-decoration: underline;">Shivani Daksh</a></p>
+  </footer>
+  
+  <!-- <script>
+    document.getElementById("contact-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      emailjs.sendForm("service_zptvjcz", "template_rj12l4k", this)
+        .then(function() {
+          alert("Email sent successfully!");
+        }, function(error) {
+          console.log("FAILED...", error);
+          alert("Email failed to send: " + JSON.stringify(error));
+        });
+    });
+  </script> -->
+  
+  <script>
+    const form = document.getElementById("contact-form");
+    const toast = document.getElementById("toast");
+    const toastMessage = document.getElementById("toast-message");
+    const submitButton = document.getElementById("submit-button");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      // Disable button and show spinner
+      submitButton.disabled = true;
+      submitButton.innerHTML = `<span class="spinner"></span>Sending...`;
+
+     emailjs.sendForm("service_zptvjcz", "template_rj12l4k", this)
+        .then(() => {
+          form.reset();
+          showToast("Email sent successfully!", "success");
+        })
+        .catch((error) => {
+          console.error("Error sending email:", error);
+          showToast("Failed to send email. Please try again.", "error");
+        })
+        .finally(() => {
+          // Restore button
+          submitButton.disabled = false;
+          submitButton.innerHTML = "Send Email";
+        });
+    });
+
+    function showToast(message, type = "success") {
+      toastMessage.textContent = message;
+      toast.className = `toast show ${type}`;
+      setTimeout(hideToast, 5000); // Auto-hide after 5s
+    }
+
+    function hideToast() {
+      toast.classList.remove("show", "success", "error");
+    }
+  </script>
+   <!-- <script>
+    const form = document.getElementById("contact-form");
+    const toast = document.getElementById("toast");
+    const toastMessage = document.getElementById("toast-message");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+     emailjs.sendForm("service_zptvjcz", "template_rj12l4k", this)
+        .then(() => {
+          form.reset();
+          showToast("Email sent successfully!", "success");
+        })
+        .catch((error) => {
+          console.error("Error sending email:", error);
+          showToast("Failed to send email. Please try again.", "error");
+        });
+    });
+
+    function showToast(message, type = "success") {
+      toastMessage.textContent = message;
+      toast.className = `toast show ${type}`;
+
+      setTimeout(() => {
+        hideToast();
+      }, 5000); // Auto-hide after 5 seconds
+    }
+
+    function hideToast() {
+      toast.classList.remove("show", "success", "error");
+    }
+  </script> -->
+  
 </body>
+
 </html>
