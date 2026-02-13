@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Shivie 💖</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    font-family:'Segoe UI',sans-serif;
+    overflow:hidden;
+    text-align:center;
+    color:white;
+    transition: transform 0.4s ease;
+}
+
+.container {
+    padding:20px;
+    max-width:90%;
+}
+
+h1 {
+    font-size:2rem;
+    min-height:80px;
+}
+
+.buttons {
+    margin-top:30px;
+    position:relative;
+    height:90px;
+}
+
+button {
+    padding:12px 28px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    transition:all 0.3s ease;
+    position:absolute;
+}
+
+#yesBtn {
+    background:#ff4d6d;
+    color:white;
+    left:25%;
+}
+
+#noBtn {
+    background:white;
+    color:#ff4d6d;
+    right:25%;
+}
+
+.celebration {
+    margin-top:30px;
+    font-size:1.8rem;
+    display:none;
+    animation:fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity:0; transform:scale(0.8); }
+    to { opacity:1; transform:scale(1); }
+}
+
+.ring {
+    font-size:80px;
+    position:absolute;
+    top:-100px;
+    left:50%;
+    transform:translateX(-50%);
+    display:none;
+    animation:dropRing 1.2s ease forwards;
+}
+
+@keyframes dropRing {
+    0% { top:-100px; }
+    60% { top:40%; }
+    80% { top:35%; }
+    100% { top:40%; }
+}
+
+.heart {
+    position:absolute;
+    font-size:20px;
+    animation:float 5s linear infinite;
+}
+
+@keyframes float {
+    0% { transform:translateY(0); opacity:1; }
+    100% { transform:translateY(-100vh); opacity:0; }
+}
+
+@media(max-width:600px){
+    h1{font-size:1.6rem;}
+    button{font-size:16px;padding:10px 20px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1 id="question"></h1>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 😜</button>
+    </div>
+
+    <div class="celebration" id="celebrate">
+        SHE SAID YESSSS! 💕💍✨
+    </div>
+
+    <div class="ring" id="ring">💍</div>
+</div>
+
+<audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b6b6e0a.mp3?filename=romantic-background-116199.mp3" type="audio/mp3">
+</audio>
+
+<script>
+const text = "Shivie 💖, Will you be my Valentine?";
+const question = document.getElementById("question");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const celebrate = document.getElementById("celebrate");
+const ring = document.getElementById("ring");
+const bgMusic = document.getElementById("bgMusic");
+
+let i = 0;
+let noCount = 0;
+
+// Typewriter
+function typeWriter() {
+    if (i < text.length) {
+        question.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 60);
+    }
+}
+typeWriter();
+
+// No button teasing logic
+function teaseMove() {
+
+    noCount++;
+
+    const phrases = [
+        "No 😜",
+        "Are you sure? 😏",
+        "Really? 🥺",
+        "Think again 💔",
+        "Last chance 😈",
+        "Just say YES already 💘"
+    ];
+
+    if(noCount < phrases.length){
+        noBtn.innerHTML = phrases[noCount];
+    }
+
+    const moveAmount = 60 + (noCount * 15);
+
+    const rect = noBtn.getBoundingClientRect();
+    let newX = rect.left + (Math.random()-0.5)*moveAmount;
+    let newY = rect.top + (Math.random()-0.5)*moveAmount;
+
+    newX = Math.max(10, Math.min(window.innerWidth - rect.width - 10, newX));
+    newY = Math.max(10, Math.min(window.innerHeight - rect.height - 10, newY));
+
+    noBtn.style.left = newX + "px";
+    noBtn.style.top = newY + "px";
+
+    // Make YES button bigger
+    let scale = 1 + (noCount * 0.1);
+    yesBtn.style.transform = "scale(" + scale + ")";
+
+    // Slight dramatic zoom
+    if(noCount > 4){
+        document.body.style.transform = "scale(1.03)";
+    }
+}
+
+noBtn.addEventListener("mouseover", teaseMove);
+noBtn.addEventListener("touchstart", teaseMove);
+
+// YES click
+yesBtn.addEventListener("click", () => {
+    celebrate.style.display = "block";
+    ring.style.display = "block";
+    createHearts(40);
+
+    bgMusic.volume = 0;
+    bgMusic.play();
+
+    // Smooth fade in music
+    let fade = setInterval(() => {
+        if (bgMusic.volume < 0.5) {
+            bgMusic.volume += 0.05;
+        } else {
+            clearInterval(fade);
+        }
+    }, 200);
+});
+
+// Floating hearts
+function createHearts(count){
+    for(let i=0;i<count;i++){
+        const heart=document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML="💖";
+        heart.style.left=Math.random()*window.innerWidth+"px";
+        heart.style.top=window.innerHeight+"px";
+        heart.style.fontSize=Math.random()*20+15+"px";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),5000);
+    }
+}
+
+setInterval(()=>createHearts(2),1200);
+</script>
+
+</body>
+</html>
