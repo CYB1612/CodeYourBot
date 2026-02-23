@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Ambassador Program | Code Your Bot</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@600;700&family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ─── RESET & ROOT ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --ink:    #05080f;
+  --navy:   #0a1628;
+  --blue:   #112354;
+  --amber:  #f59e0b;
+  --amber2: #fbbf24;
+  --white:  #ffffff;
+  --slate:  #94a3b8;
+  --dim:    rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.07);
+  --radius: 18px;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* ─── CURSOR GLOW ─── */
+.cursor-glow {
+  position: fixed;
+  width: 380px; height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  transition: transform 0.08s linear;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 48px;
+  background: rgba(5,8,15,0.75);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15rem; font-weight: 800;
+  color: var(--white); text-decoration: none;
+  letter-spacing: -0.3px;
+}
+.nav-logo em { color: var(--amber); font-style: normal; }
+
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 0.82rem; font-weight: 500; color: var(--slate);
+  text-decoration: none; letter-spacing: 0.3px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+
+.nav-apply {
+  background: var(--amber); color: var(--ink);
+  font-weight: 700; font-size: 0.83rem;
+  padding: 10px 22px; border-radius: 7px;
+  text-decoration: none; letter-spacing: 0.2px;
+  transition: background 0.2s, transform 0.2s;
+}
+.nav-apply:hover { background: var(--amber2); transform: translateY(-1px); }
+
+@media(max-width:768px){
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+}
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0;
+  padding: 120px 0 0;
+  overflow: hidden;
+}
+
+@media(max-width:900px){
+  .hero { grid-template-columns: 1fr; padding-top: 100px; }
+}
+
+/* background grid */
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse 90% 70% at 30% 40%, black 20%, transparent 80%);
+}
+
+/* amber orb top-left */
+.hero-orb-1 {
+  position: absolute; z-index: 0;
+  width: 520px; height: 520px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,158,11,0.13) 0%, transparent 65%);
+  top: -120px; left: -120px; pointer-events: none;
+}
+
+/* blue orb bottom-right */
+.hero-orb-2 {
+  position: absolute; z-index: 0;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(17,35,84,0.7) 0%, transparent 70%);
+  bottom: -200px; right: -100px; pointer-events: none;
+}
+
+.hero-left {
+  position: relative; z-index: 2;
+  padding: 60px 0 80px 80px;
+}
+
+@media(max-width:900px){ .hero-left { padding: 40px 24px 50px; } }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.25);
+  color: var(--amber2); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 7px 16px; border-radius: 100px; margin-bottom: 28px;
+}
+.hero-eyebrow .pulse-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--amber); animation: pulseAnim 1.8s infinite;
+}
+@keyframes pulseAnim {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(0.6); opacity: 0.4; }
+}
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.6rem, 4.5vw, 4rem);
+  font-weight: 800; line-height: 1.08;
+  letter-spacing: -2px; margin-bottom: 24px;
+}
+.hero h1 .line-amber { color: var(--amber); }
+
+.hero-desc {
+  font-size: 1rem; color: var(--slate);
+  line-height: 1.75; max-width: 480px; margin-bottom: 36px;
+}
+.hero-desc strong { color: #cbd5e1; font-weight: 500; }
+
+.hero-cta-row {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+
+.btn-hero {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--amber); color: var(--ink);
+  font-weight: 700; font-size: 0.95rem;
+  padding: 15px 28px; border-radius: 9px;
+  text-decoration: none;
+  box-shadow: 0 0 40px rgba(245,158,11,0.3);
+  transition: all 0.25s;
+}
+.btn-hero:hover {
+  background: var(--amber2);
+  box-shadow: 0 0 60px rgba(245,158,11,0.5);
+  transform: translateY(-2px);
+}
+.btn-hero svg { transition: transform 0.2s; }
+.btn-hero:hover svg { transform: translateX(4px); }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--slate); font-size: 0.88rem; font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--border); padding: 14px 22px; border-radius: 9px;
+  transition: all 0.2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: var(--white); }
+
+.hero-stats {
+  display: flex; gap: 32px; margin-top: 52px; padding-top: 36px;
+  border-top: 1px solid var(--border);
+}
+
+.stat-item { display: flex; flex-direction: column; gap: 4px; }
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.9rem; font-weight: 800; color: var(--amber);
+  line-height: 1;
+}
+.stat-label { font-size: 0.75rem; color: var(--slate); letter-spacing: 0.3px; }
+
+/* ─── HERO RIGHT — image mosaic ─── */
+.hero-right {
+  position: relative; z-index: 2;
+  height: 100vh; overflow: hidden;
+}
+@media(max-width:900px){ .hero-right { height: 360px; } }
+
+.hero-img-main {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=900&q=80') center/cover no-repeat;
+  opacity: 0.55;
+}
+/* gradient fade on the left so it blends into hero */
+.hero-img-main::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, var(--ink) 0%, rgba(5,8,15,0.1) 50%, transparent 100%),
+              linear-gradient(180deg, rgba(5,8,15,0.5) 0%, transparent 30%, rgba(5,8,15,0.6) 100%);
+}
+
+/* floating card overlay */
+.hero-float-card {
+  position: absolute; bottom: 80px; left: -28px; z-index: 5;
+  background: rgba(10,22,40,0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 14px;
+  padding: 18px 22px;
+  min-width: 220px;
+  animation: floatCard 4s ease-in-out infinite;
+}
+@keyframes floatCard {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+.float-card-row { display: flex; align-items: center; gap: 12px; }
+.float-avatar-stack { display: flex; }
+.float-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 2px solid var(--ink);
+  background: linear-gradient(135deg, #1e3a8a, #f59e0b);
+  margin-left: -8px; font-size: 0.6rem;
+  display: flex; align-items: center; justify-content: center; font-weight: 700;
+}
+.float-avatar:first-child { margin-left: 0; }
+.float-card-text { font-size: 0.78rem; color: var(--white); line-height: 1.4; }
+.float-card-text span { color: var(--amber); font-weight: 600; }
+
+@media(max-width:900px){ .hero-float-card { display: none; } }
+
+/* ─── SECTION SHARED ─── */
+.section { position: relative; z-index: 1; }
+
+.s-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 14px;
+}
+.s-label::before {
+  content: ''; display: block;
+  width: 24px; height: 2px;
+  background: var(--amber); border-radius: 2px;
+}
+
+.s-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.9rem, 3vw, 2.8rem);
+  font-weight: 800; letter-spacing: -1.2px; line-height: 1.12;
+}
+.s-title .a { color: var(--amber); }
+
+.s-body {
+  font-size: 0.97rem; color: var(--slate);
+  line-height: 1.75; max-width: 520px; margin-top: 12px;
+}
+
+/* ─── WHY JOIN — split ─── */
+.why-section {
+  padding: 130px 80px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+}
+@media(max-width:900px){ .why-section { grid-template-columns:1fr; padding: 80px 24px; gap:50px; } }
+
+.why-img-col { position: relative; }
+
+.why-img-frame {
+  border-radius: 20px; overflow: hidden;
+  aspect-ratio: 4/5; position: relative;
+}
+
+.why-img-frame img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(0.7) brightness(0.75);
+  transition: transform 0.6s ease;
+}
+.why-img-frame:hover img { transform: scale(1.04); }
+
+/* overlay tint */
+.why-img-frame::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(5,8,15,0.7) 0%, transparent 50%);
+  border-radius: 20px;
+}
+
+/* badge floating on image */
+.why-img-badge {
+  position: absolute; bottom: -20px; right: -20px; z-index: 3;
+  background: var(--amber);
+  color: var(--ink); font-family: 'Syne', sans-serif;
+  font-weight: 800; font-size: 0.9rem;
+  padding: 18px 22px; border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(245,158,11,0.35);
+  text-align: center; line-height: 1.3;
+}
+.why-img-badge big { font-size: 2rem; display: block; line-height: 1; }
+
+@media(max-width:900px){ .why-img-badge { right: 0; bottom: -10px; } }
+
+.why-cards {
+  display: flex; flex-direction: column; gap: 14px; margin-top: 40px;
+}
+
+.why-card {
+  display: flex; align-items: flex-start; gap: 18px;
+  background: var(--dim); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px 22px;
+  transition: border-color 0.25s, background 0.25s, transform 0.25s;
+  opacity: 0; transform: translateX(30px);
+}
+.why-card.visible {
+  animation: slideIn 0.55s ease forwards;
+}
+@keyframes slideIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+.why-card:hover {
+  border-color: rgba(245,158,11,0.3);
+  background: rgba(245,158,11,0.04);
+  transform: translateX(5px);
+}
+
+.why-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(245,158,11,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+}
+
+.why-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem; font-weight: 700; margin-bottom: 5px;
+}
+.why-card p { font-size: 0.82rem; color: var(--slate); line-height: 1.55; }
+
+/* ─── RESPONSIBILITIES ─── */
+.resp-section {
+  padding: 130px 80px;
+  border-top: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(17,35,84,0.2) 0%, transparent 100%);
+}
+@media(max-width:900px){ .resp-section { padding: 80px 24px; } }
+
+.resp-header { text-align: center; margin-bottom: 70px; }
+.resp-header .s-label { justify-content: center; }
+
+.resp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px; max-width: 1100px; margin: 0 auto;
+}
+@media(max-width:1000px){ .resp-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:600px)  { .resp-grid { grid-template-columns: 1fr; } }
+
+.resp-card {
+  background: var(--dim); border: 1px solid var(--border);
+  border-radius: 16px; padding: 30px 24px;
+  position: relative; overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+  opacity: 0; transform: translateY(30px);
+}
+.resp-card.visible { animation: fadeUp 0.5s ease forwards; }
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.resp-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--amber), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.resp-card:hover { border-color: rgba(245,158,11,0.3); transform: translateY(-5px); }
+.resp-card:hover::before { opacity: 1; }
+
+.resp-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.8rem; font-weight: 800;
+  color: rgba(245,158,11,0.12); line-height: 1;
+  margin-bottom: 16px; letter-spacing: -2px;
+}
+
+.resp-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem; font-weight: 700;
+  margin-bottom: 10px; color: var(--white);
+}
+.resp-card p { font-size: 0.82rem; color: var(--slate); line-height: 1.6; }
+
+/* ─── PERKS STRIP ─── */
+.perks-section {
+  padding: 100px 80px;
+  border-top: 1px solid var(--border);
+}
+@media(max-width:900px){ .perks-section { padding: 80px 24px; } }
+
+.perks-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+}
+@media(max-width:900px){ .perks-inner { grid-template-columns: 1fr; gap: 50px; } }
+
+.perks-img {
+  border-radius: 20px; overflow: hidden;
+  aspect-ratio: 16/11; position: relative;
+}
+.perks-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.6) saturate(0.65);
+  transition: transform 0.6s;
+}
+.perks-img:hover img { transform: scale(1.04); }
+.perks-img::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(245,158,11,0.08) 0%, transparent 60%);
+}
+
+.perks-list {
+  display: flex; flex-direction: column; gap: 0;
+}
+
+.perk-row {
+  display: flex; align-items: center; gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  transition: padding-left 0.25s;
+  opacity: 0; transform: translateX(-20px);
+}
+.perk-row.visible { animation: slideRight 0.5s ease forwards; }
+@keyframes slideRight { to { opacity: 1; transform: translateX(0); } }
+
+.perk-row:first-child { border-top: 1px solid var(--border); }
+.perk-row:hover { padding-left: 10px; }
+
+.perk-icon {
+  width: 42px; height: 42px; flex-shrink: 0;
+  background: rgba(245,158,11,0.1);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+
+.perk-text h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.93rem; font-weight: 700; margin-bottom: 3px;
+}
+.perk-text p { font-size: 0.8rem; color: var(--slate); }
+
+/* ─── PROCESS TIMELINE ─── */
+.process-section {
+  padding: 130px 80px;
+  border-top: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(17,35,84,0.15) 0%, transparent 100%);
+}
+@media(max-width:900px){ .process-section { padding: 80px 24px; } }
+
+.process-header { text-align: center; margin-bottom: 70px; }
+.process-header .s-label { justify-content: center; }
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0; max-width: 1100px; margin: 0 auto;
+  position: relative;
+}
+@media(max-width:800px){ .timeline { grid-template-columns: 1fr 1fr; } }
+@media(max-width:500px){ .timeline { grid-template-columns: 1fr; } }
+
+/* connecting line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 28px; left: calc(12.5%); right: calc(12.5%);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--amber), transparent);
+  opacity: 0.3;
+}
+@media(max-width:800px){ .timeline::before { display: none; } }
+
+.tl-step {
+  padding: 0 24px 40px;
+  text-align: center;
+  opacity: 0; transform: translateY(20px);
+}
+.tl-step.visible { animation: fadeUp 0.5s ease forwards; }
+
+.tl-num {
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  background: var(--dim); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800;
+  color: var(--amber); transition: background 0.3s, border-color 0.3s;
+}
+.tl-step:hover .tl-num {
+  background: rgba(245,158,11,0.1);
+  border-color: rgba(245,158,11,0.4);
+}
+
+.tl-step h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem; font-weight: 700; margin-bottom: 8px;
+}
+.tl-step p { font-size: 0.8rem; color: var(--slate); line-height: 1.6; }
+
+/* ─── CTA BANNER ─── */
+.cta-section {
+  padding: 100px 80px;
+  border-top: 1px solid var(--border);
+}
+@media(max-width:900px){ .cta-section { padding: 80px 24px; } }
+
+.cta-inner {
+  max-width: 1100px; margin: 0 auto;
+  background: linear-gradient(135deg, rgba(17,35,84,0.7) 0%, rgba(10,22,40,0.85) 100%);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 24px;
+  padding: 70px 80px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px; align-items: center;
+  position: relative; overflow: hidden;
+}
+
+@media(max-width:768px){ .cta-inner { grid-template-columns: 1fr; padding: 48px 32px; } }
+
+.cta-inner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 0% 50%, rgba(245,158,11,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.cta-img-blur {
+  position: absolute; right: 0; top: 0; bottom: 0; width: 45%;
+  background: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?w=700&q=70') right center/cover no-repeat;
+  opacity: 0.08; border-radius: 0 24px 24px 0;
+}
+
+.cta-text { position: relative; z-index: 2; }
+.cta-text .s-label { margin-bottom: 16px; }
+.cta-text h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 800; letter-spacing: -1.2px; line-height: 1.1;
+  margin-bottom: 14px;
+}
+.cta-text h2 span { color: var(--amber); }
+.cta-text p { font-size: 0.95rem; color: var(--slate); line-height: 1.7; max-width: 480px; }
+
+.cta-action { position: relative; z-index: 2; text-align: center; flex-shrink: 0; }
+
+.cta-note {
+  font-size: 0.72rem; color: #475569;
+  margin-top: 12px; letter-spacing: 0.3px;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 30px 80px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+  font-size: 0.8rem; color: #334155;
+}
+footer .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.95rem; color: #475569; text-decoration: none; }
+footer .logo em { color: var(--amber); font-style: normal; }
+@media(max-width:600px){ footer { padding: 24px; justify-content: center; text-align: center; } }
+
+/* ─── SCROLL REVEAL BASE ─── */
+.reveal { opacity: 0; transform: translateY(28px); }
+.reveal.visible { animation: fadeUp 0.6s ease forwards; }
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Code<em>Your</em>Bot</a>
+  <ul class="nav-links">
+    <li><a href="#why">Why Join</a></li>
+    <li><a href="#responsibilities">Roles</a></li>
+    <li><a href="#perks">Perks</a></li>
+    <li><a href="#apply">Apply</a></li>
+  </ul>
+  <a href="#apply" class="nav-apply">Apply Now →</a>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-orb-1"></div>
+  <div class="hero-orb-2"></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="pulse-dot"></span>
+      Now Recruiting · 2026 Cohort
+    </div>
+
+    <h1>
+      Become a<br>
+      <span class="line-amber">Campus Digital</span><br>
+      Ambassador
+    </h1>
+
+    <p class="hero-desc">
+      Lead the automation movement at your college. Represent <strong>Code Your Bot</strong>, build your professional brand, earn rewards, and connect with a national network of tech-forward students.
+    </p>
+
+    <div class="hero-cta-row">
+      <a href="#apply" class="btn-hero">
+        Apply Now
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#why" class="btn-ghost">
+        Learn More
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">50+</span>
+        <span class="stat-label">Colleges</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">₹0</span>
+        <span class="stat-label">Cost to Join</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Remote-Friendly</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-img-main"></div>
+    <div class="hero-float-card">
+      <div class="float-card-row">
+        <div class="float-avatar-stack">
+          <div class="float-avatar">AK</div>
+          <div class="float-avatar">SR</div>
+          <div class="float-avatar">PV</div>
+        </div>
+        <div class="float-card-text">
+          <span>+120 students</span> joined<br>this week
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ WHY JOIN ═══════════ -->
+<section class="why-section" id="why">
+  <div class="why-img-col">
+    <div class="why-img-frame">
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=75" alt="Students collaborating">
+    </div>
+    <div class="why-img-badge">
+      <big>🏆</big>
+      Top Ambassadors<br>get featured
+    </div>
+  </div>
+
+  <div>
+    <p class="s-label">Why Join</p>
+    <h2 class="s-title">More Than a<br><span class="a">Title</span> — It's a Launchpad</h2>
+    <p class="s-body">This isn't just a social media role. It's a structured leadership program that builds skills companies look for before you even graduate.</p>
+
+    <div class="why-cards">
+      <div class="why-card">
+        <div class="why-icon">🚀</div>
+        <div>
+          <h3>Build Leadership Presence</h3>
+          <p>Organise events, manage registrations and lead a community of automation enthusiasts on campus.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💼</div>
+        <div>
+          <h3>Strengthen Your LinkedIn</h3>
+          <p>An official Code Your Bot credential + endorsement that recruiters actually notice.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💰</div>
+        <div>
+          <h3>Performance-Based Earnings</h3>
+          <p>Earn real money for every student you bring in. No cap on what top ambassadors take home.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🌐</div>
+        <div>
+          <h3>National Network Access</h3>
+          <p>Connect with ambassadors from 50+ colleges and industry mentors in our exclusive community.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ RESPONSIBILITIES ═══════════ -->
+<section class="resp-section" id="responsibilities">
+  <div class="resp-header">
+    <p class="s-label">Your Role</p>
+    <h2 class="s-title">What You'll <span class="a">Do</span></h2>
+    <p class="s-body" style="margin: 14px auto 0; text-align:center;">Clear, manageable tasks designed around a student's schedule.</p>
+  </div>
+
+  <div class="resp-grid">
+    <div class="resp-card">
+      <div class="resp-num">01</div>
+      <h3>Promote Workshops</h3>
+      <p>Spread the word about AI & RPA workshops across your campus — online and offline.</p>
+    </div>
+    <div class="resp-card">
+      <div class="resp-num">02</div>
+      <h3>Drive Registrations</h3>
+      <p>Use your referral link to track and manage student sign-ups for every event.</p>
+    </div>
+    <div class="resp-card">
+      <div class="resp-num">03</div>
+      <h3>Run LinkedIn Campaigns</h3>
+      <p>Share official content and grow your own professional visibility in the process.</p>
+    </div>
+    <div class="resp-card">
+      <div class="resp-num">04</div>
+      <h3>Build a Tech Community</h3>
+      <p>Create a group of automation-interested students who can learn and grow together.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PERKS ═══════════ -->
+<section class="perks-section" id="perks">
+  <div class="perks-inner">
+
+    <div class="perks-img">
+      <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=75" alt="Student on laptop">
+    </div>
+
+    <div>
+      <p class="s-label">What You Get</p>
+      <h2 class="s-title">Real <span class="a">Rewards</span><br>for Real Work</h2>
+      <p class="s-body" style="margin-bottom: 10px;">Tangible perks — not just experience points.</p>
+
+      <div class="perks-list">
+        <div class="perk-row">
+          <div class="perk-icon">🎖</div>
+          <div class="perk-text">
+            <h4>Official Digital Certificate</h4>
+            <p>Verified credential from Code Your Bot on your profile</p>
+          </div>
+        </div>
+        <div class="perk-row">
+          <div class="perk-icon">💸</div>
+          <div class="perk-text">
+            <h4>Commission Per Referral</h4>
+            <p>Earn cash for every student who registers through your link</p>
+          </div>
+        </div>
+        <div class="perk-row">
+          <div class="perk-icon">🎓</div>
+          <div class="perk-text">
+            <h4>Free Workshop Access</h4>
+            <p>Attend all Code Your Bot sessions at zero cost</p>
+          </div>
+        </div>
+        <div class="perk-row">
+          <div class="perk-icon">📣</div>
+          <div class="perk-text">
+            <h4>Featured on Our Platform</h4>
+            <p>Top ambassadors get spotlighted across our social channels</p>
+          </div>
+        </div>
+        <div class="perk-row">
+          <div class="perk-icon">🤝</div>
+          <div class="perk-text">
+            <h4>Mentorship & Guidance</h4>
+            <p>Direct access to founders and industry mentors</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ PROCESS ═══════════ -->
+<section class="process-section">
+  <div class="process-header">
+    <p class="s-label">How It Works</p>
+    <h2 class="s-title">4 Steps to <span class="a">Get Started</span></h2>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-num">01</div>
+      <h3>Submit Application</h3>
+      <p>Fill out the short form with your college details and why you want to join.</p>
+    </div>
+    <div class="tl-step">
+      <div class="tl-num">02</div>
+      <h3>Quick Screening</h3>
+      <p>A 10-minute call to align on goals and confirm your fit for the cohort.</p>
+    </div>
+    <div class="tl-step">
+      <div class="tl-num">03</div>
+      <h3>Onboarding Kit</h3>
+      <p>Receive your ambassador toolkit — assets, referral link, and training.</p>
+    </div>
+    <div class="tl-step">
+      <div class="tl-num">04</div>
+      <h3>Go Live</h3>
+      <p>Start promoting, earning, and building your campus community.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section class="cta-section" id="apply">
+  <div class="cta-inner">
+    <div class="cta-img-blur"></div>
+
+    <div class="cta-text">
+      <p class="s-label">Limited Spots</p>
+      <h2>Ready to <span>Lead</span><br>Your Campus?</h2>
+      <p>We're accepting only <strong style="color:#cbd5e1;">1–2 ambassadors per college</strong>. Applications close once spots fill up. Don't wait.</p>
+    </div>
+
+    <div class="cta-action">
+      <a href="https://forms.gle/6kVhATRmCRRSE7oA7" class="btn-hero" style="font-size:1rem; padding: 18px 34px;">
+        Submit Application
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p class="cta-note">Free to apply · Takes 2 minutes</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="logo">Code<em>Your</em>Bot</a>
+  <span>© 2026 Code Your Bot · All Rights Reserved</span>
+</footer>
+
+<script>
+/* ── Cursor glow ── */
+const glow = document.getElementById('cursorGlow');
+document.addEventListener('mousemove', e => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top  = e.clientY + 'px';
+});
+
+/* ── Scroll reveal ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const delay = el.dataset.delay || 0;
+      setTimeout(() => el.classList.add('visible'), delay);
+      observer.unobserve(el);
+    }
+  });
+}, { threshold: 0.15 });
+
+/* Stagger children of grouped containers */
+document.querySelectorAll('.why-card, .resp-card, .tl-step, .perk-row').forEach((el, i) => {
+  el.dataset.delay = (i % 4) * 110;
+  observer.observe(el);
+});
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
